@@ -16,4 +16,9 @@ class Config
         }
         return $key;
     }
+
+    public static function set($key, $value)
+    {
+        putenv("$key=$value");
+    }
 }
