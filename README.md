@@ -1,2 +1,2 @@
-# framework
-OzCat framework
+# Pongtan framework for LightFish
+Pongtan framework
