@@ -2,56 +2,57 @@
 
 namespace Pongtan;
 
+use Illuminate\Filesystem\Filesystem;
 use Pongtan\Services\Config;
 use Dotenv\Dotenv;
-use Illuminate\Database\Capsule\Manager as Capsule;
 
 class App
 {
-    protected $basePath;
+    public $basePath;
+    
+    public $config;
 
-    public function __construct()
+    public $fileSystem;
+
+    public $environment;
+
+    /**
+     * App constructor.
+     * @param $bathPath
+     */
+    public function __construct($bathPath)
     {
+        $this->setBasePath($bathPath);
+        $this->config = new Config();
+        $this->fileSystem = new Filesystem();
+        $this->environment = $this->getEnvironment();
+        $this->config->loadConfigFiles($this->bathPath . '/../config');
     }
 
     /**
-     * @param $path
+     * @param $bathPath
      */
-    public function setBasePath($path)
-    {
-        $this->basePath = $path;
+    public function setBasePath($bathPath){
+        $this->basePath = $bathPath;
     }
 
-    public function loadEnv()
+    /**
+     * @return string
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    public function getEnvironment()
     {
-        $env = new Dotenv($this->basePath);
-        $env->load();
-    }
+        $environment = '';
+        $environmentPath = $this->bathPath . '/../.env';
+        if ($this->fileSystem->isFile($environmentPath)) {
+            $environment = trim($this->fileSystem->get($environmentPath));
+            $envFile = $this->bathPath . '/../.' . $environment;
 
-    public function setDebug()
-    {
-        // debug
-        if (Config::get('debug') == "true") {
-            define("DEBUG", true);
+            if ($this->fileSystem->isFile($envFile . '.env')) {
+                $dotEnv = new Dotenv($this->bathPath . '/../', '.' . $environment . '.env');
+                $dotEnv->load();
+            }
         }
-    }
-
-    public function setVersion($version)
-    {
-        $_ENV['version'] = $version;
-    }
-
-    public function setTimezone()
-    {
-        // config time zone
-        date_default_timezone_set(Config::get('timeZone'));
-    }
-
-    public function bootDb()
-    {
-        // Init Eloquent ORM Connection
-        $capsule = new Capsule;
-        $capsule->addConnection(Config::getDbConfig());
-        $capsule->bootEloquent();
+        return $environment;
     }
 }

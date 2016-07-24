@@ -2,23 +2,31 @@
 
 namespace Pongtan\Services;
 
+use Illuminate\Config\Repository;
+use Illuminate\Filesystem\Filesystem;
 
 class Config
 {
-    public static function get($key)
+    /**
+     * @param $path
+     */
+    public function loadConfigFiles($path)
     {
-        $key = getenv($key);
-        if ($key == 'true') {
-            return true;
+        $fileSystem = new Filesystem();
+        if (!$fileSystem->isDirectory($path)) {
+            return;
         }
-        if ($key == 'false') {
-            return false;
-        }
-        return $key;
-    }
 
-    public static function set($key, $value)
-    {
-        putenv("$key=$value");
+        foreach ($fileSystem->allFiles($path) as $file) {
+            $relativePathname = $file->getRelativePathname();
+            $pathInfo = pathinfo($relativePathname);
+            if ($pathInfo['dirname'] == '.') {
+                $key = $pathInfo['filename'];
+            } else {
+                $key = str_replace('/', '.', $pathInfo['dirname']) . '.' . $pathInfo['filename'];
+            }
+
+            $this->set($key, require $path . '/' . $relativePathname);
+        }
     }
 }
