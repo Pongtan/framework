@@ -9,7 +9,7 @@ use Slim\App as SlimApp;
 
 class App extends SlimApp
 {
-    public $basePath;
+    private $basePath;
 
     public $config;
 
@@ -19,11 +19,11 @@ class App extends SlimApp
 
     /**
      * App constructor.
-     * @param $bathPath
+     * @param $basePath
      */
-    public function __construct($bathPath)
+    public function __construct($basePath)
     {
-        $this->setBasePath($bathPath);
+        $this->setBasePath($basePath);
         $this->init();
     }
 
@@ -32,15 +32,15 @@ class App extends SlimApp
         $this->config = new Config();
         $this->fileSystem = new Filesystem();
         $this->environment = $this->getEnvironment();
-        $this->config->loadConfigFiles($this->bathPath . '/config');
+        $this->config->loadConfigFiles($this->basePath . '/config');
     }
 
     /**
-     * @param $bathPath
+     * @param $basePath
      */
-    public function setBasePath($bathPath)
+    public function setBasePath($basePath)
     {
-        $this->basePath = $bathPath;
+        $this->basePath = $basePath;
     }
 
     /**
@@ -50,13 +50,13 @@ class App extends SlimApp
     public function getEnvironment()
     {
         $environment = '';
-        $environmentPath = $this->bathPath . '/.env';
+        $environmentPath = $this->basePath . '/.env';
         if ($this->fileSystem->isFile($environmentPath)) {
             $environment = trim($this->fileSystem->get($environmentPath));
-            $envFile = $this->bathPath . '/.' . $environment;
+            $envFile = $this->basePath . '/.' . $environment;
 
             if ($this->fileSystem->isFile($envFile . '.env')) {
-                $dotEnv = new Dotenv($this->bathPath . '/', '.' . $environment . '.env');
+                $dotEnv = new Dotenv($this->basePath . '/', '.' . $environment . '.env');
                 $dotEnv->load();
             }
         }
