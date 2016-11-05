@@ -2,7 +2,6 @@
 
 namespace Pongtan\Services;
 
-use Illuminate\Config\Repository;
 use Illuminate\Filesystem\Filesystem;
 
 class Config
