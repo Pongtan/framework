@@ -5,8 +5,9 @@ namespace Pongtan;
 use Illuminate\Filesystem\Filesystem;
 use Pongtan\Services\Config;
 use Dotenv\Dotenv;
+use Slim\App as SlimApp;
 
-class App
+class App extends SlimApp
 {
     public $basePath;
     
