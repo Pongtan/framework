@@ -1,9 +1,10 @@
 {
   "name": "pongtan/framework",
   "description": "The Pongtan Framework.",
+  "license": "MIT",
   "authors": [
     {
-      "name": "Xiaobin",
+      "name": "orvice",
       "email": "pongtan@orx.me"
     }
   ],
