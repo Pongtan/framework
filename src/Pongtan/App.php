@@ -25,6 +25,7 @@ class App extends SlimApp
     {
         $this->setBasePath($basePath);
         $this->init();
+        parent::__construct([]);
     }
 
     public function init()
