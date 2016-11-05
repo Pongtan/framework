@@ -2,9 +2,10 @@
 
 namespace Pongtan\Services;
 
+use Illuminate\Config\Repository;
 use Illuminate\Filesystem\Filesystem;
 
-class Config
+class Config extends Repository
 {
     /**
      * @param $path
@@ -28,4 +29,6 @@ class Config
             $this->set($key, require $path . '/' . $relativePathname);
         }
     }
+
+
 }
