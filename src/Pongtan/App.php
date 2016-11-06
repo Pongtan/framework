@@ -54,7 +54,6 @@ class App extends SlimApp
 
     public function init()
     {
-        $this->registerConfig();
     }
 
     public function registerConfig()
