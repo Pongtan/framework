@@ -6,6 +6,7 @@ use Dotenv\Dotenv;
 use Illuminate\Filesystem\Filesystem;
 use Pongtan\Services\Config;
 use Slim\App as SlimApp;
+use Slim\Container;
 
 class App extends SlimApp
 {
@@ -25,7 +26,8 @@ class App extends SlimApp
     {
         $this->setBasePath($basePath);
         $this->init();
-        parent::__construct([]);
+        $container = new Container;
+        parent::__construct($container);
     }
 
     public function init()

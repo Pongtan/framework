@@ -2,37 +2,42 @@
 
 namespace Pongtan\Http;
 
-use Pongtan\View\Factory;
+use Interop\Container\ContainerInterface;
 
 class Controller
 {
-    public $view;
 
-    public $smarty;
+    protected $app;
 
-    public function construct__()
+    protected $ci;
+
+    //Constructor
+    public function __construct(ContainerInterface $ci)
     {
-
+        $this->ci = $ci;
     }
 
-    public function smarty()
-    {
-        $this->smarty = Factory::newSmarty();
-        return $this->smarty;
-    }
-
-    public function view()
-    {
-        return $this->smarty();
-    }
 
     /**
      * @param $response
      * @param $res
+     * @param int $statusCode
      * @return mixed
      */
-    public function echoJson($response, $res)
+    public function echoJson($response, $res, $statusCode = 200)
     {
-        return $response->getBody()->write(json_encode($res));
+        $newResponse = $response->withJson($res, $statusCode);
+        return $newResponse;
+    }
+
+    /**
+     * @param $response
+     * @param $to
+     * @return mixed
+     */
+    public function redirect($response, $to)
+    {
+        $newResponse = $response->withStatus(302)->withHeader('Location', $to);
+        return $newResponse;
     }
 }
