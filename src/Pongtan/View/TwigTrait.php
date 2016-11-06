@@ -20,10 +20,7 @@ trait TwigTrait
         $twig = new Twig_Environment($loader, array(
             'cache' => $config['compiled'],
         ));
-        $ext = new PhpFunctionExtension();
-        $ext->allowFunction([
-            'config'
-        ]);
+        $ext = new PhpFunctionExtension(['config']);
         $twig->addExtension($ext);
         return $twig;
     }
