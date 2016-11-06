@@ -12,11 +12,16 @@ class App extends SlimApp
 {
     private $basePath;
 
+    /**
+     * @var Config
+     */
     public $config;
 
     public $fileSystem;
 
     public $environment;
+
+    public static $instance;
 
     /**
      * App constructor.
@@ -28,15 +33,38 @@ class App extends SlimApp
         $this->init();
         $container = new Container;
         parent::__construct($container);
+        self::$instance = $this;
+    }
+
+    /**
+     * @return App
+     */
+    public static function getInstance()
+    {
+        return self::$instance;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBasePath()
+    {
+        return $this->basePath;
     }
 
     public function init()
+    {
+        $this->registerConfig();
+    }
+
+    public function registerConfig()
     {
         $this->config = new Config();
         $this->fileSystem = new Filesystem();
         $this->environment = $this->getEnvironment();
         $this->config->loadConfigFiles($this->basePath . '/config');
     }
+
 
     /**
      * @param $basePath

@@ -7,6 +7,7 @@ use Illuminate\Filesystem\Filesystem;
 
 class Config extends Repository
 {
+
     /**
      * @param $path
      */
