@@ -26,7 +26,6 @@
     "aws/aws-sdk-php": "3.*",
     "gregwar/captcha": "1.*",
     "desarrolla2/cache": "~2.0",
-    "illuminate/container": "^5.3",
     "twig/twig": "~1.0",
     "umpirsky/twig-php-function": "dev-master"
   },
