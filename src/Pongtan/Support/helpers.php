@@ -29,12 +29,12 @@ if (!function_exists('base_path')) {
 }
 
 // env function from laravel framework
-if (! function_exists('env')) {
+if (!function_exists('env')) {
     /**
      * Gets the value of an environment variable. Supports boolean, empty and null.
      *
-     * @param  string  $key
-     * @param  mixed   $default
+     * @param  string $key
+     * @param  mixed $default
      * @return mixed
      */
     function env($key, $default = null)
@@ -58,10 +58,6 @@ if (! function_exists('env')) {
             case 'null':
             case '(null)':
                 return;
-        }
-
-        if (strlen($value) > 1 && Str::startsWith($value, '"') && Str::endsWith($value, '"')) {
-            return substr($value, 1, -1);
         }
 
         return $value;

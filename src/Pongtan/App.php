@@ -3,6 +3,7 @@
 namespace Pongtan;
 
 use Dotenv\Dotenv;
+use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Filesystem\Filesystem;
 use Pongtan\Services\Config;
 use Slim\App as SlimApp;
@@ -91,5 +92,24 @@ class App extends SlimApp
             }
         }
         return $environment;
+    }
+
+    /**
+     * Boot Eloquent
+     */
+    public function registerEloquent()
+    {
+        $capsule = new Capsule;
+        $config = $this->config->get('database.connections');
+        foreach ($config as $k => $v) {
+            $capsule->addConnection($v, $k);
+        }
+        $default = $this->config->get('database')['default'];
+        if ($default) {
+            if (isset($config[$default])) {
+                $capsule->addConnection($config[$default], 'default');
+            }
+        }
+        $capsule->bootEloquent();
     }
 }
