@@ -63,3 +63,10 @@ if (!function_exists('env')) {
         return $value;
     }
 }
+
+if (!function_exists('lang')) {
+    function lang($key)
+    {
+        return app()->lang->get($key);
+    }
+}

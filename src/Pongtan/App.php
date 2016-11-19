@@ -6,6 +6,7 @@ use Dotenv\Dotenv;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Filesystem\Filesystem;
 use Pongtan\Services\Config;
+use Pongtan\Services\Factory;
 use Slim\App as SlimApp;
 use Slim\Container;
 
@@ -17,6 +18,11 @@ class App extends SlimApp
      * @var Config
      */
     public $config;
+
+    /**
+     * @var \Illuminate\Translation\Translator
+     */
+    public $lang;
 
     public $fileSystem;
 
@@ -112,4 +118,10 @@ class App extends SlimApp
         }
         $capsule->bootEloquent();
     }
+
+    public function registerLang()
+    {
+        $this->lang = Factory::getLang();
+    }
+
 }
