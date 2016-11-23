@@ -5,7 +5,7 @@ namespace Pongtan\View;
 
 use Twig_Environment;
 use Twig_Loader_Filesystem;
-use Umpirsky\Twig\Extension\PhpFunctionExtension;
+use Pongtan\Twig\Extension\PhpFunctionExtension;
 
 trait TwigTrait
 {
