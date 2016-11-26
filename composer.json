@@ -40,7 +40,8 @@
       "src/Pongtan/Support/helpers.php"
     ],
     "psr-4": {
-      "Pongtan\\": "src/Pongtan"
+      "Pongtan\\": "src/Pongtan",
+      "Pongtan\\Tests\\": "tests"
     }
   }
 }

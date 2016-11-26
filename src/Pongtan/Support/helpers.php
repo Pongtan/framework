@@ -13,7 +13,7 @@ if (!function_exists('app')) {
 if (!function_exists('config')) {
     function config($key)
     {
-        return app()->config->get($key);
+        return app()->make('config')->get($key);
     }
 }
 
@@ -67,6 +67,6 @@ if (!function_exists('env')) {
 if (!function_exists('lang')) {
     function lang($key)
     {
-        return app()->lang->get($key);
+        return app()->make('lang')->get($key);
     }
 }

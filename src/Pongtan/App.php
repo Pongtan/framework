@@ -2,31 +2,20 @@
 
 namespace Pongtan;
 
-use Dotenv\Dotenv;
-use Illuminate\Database\Capsule\Manager as Capsule;
-use Illuminate\Filesystem\Filesystem;
+use Illuminate\Container\Container;
 use Pongtan\Services\Config;
-use Pongtan\Services\Factory;
 use Slim\App as SlimApp;
-use Slim\Container;
+use Slim\Container as SlimContainer;
 
 class App extends SlimApp
 {
     private $basePath;
 
     /**
-     * @var Config
+     * @var Container
      */
-    public $config;
+    private $container;
 
-    /**
-     * @var \Illuminate\Translation\Translator
-     */
-    public $lang;
-
-    public $fileSystem;
-
-    public $environment;
 
     public static $instance;
 
@@ -38,7 +27,7 @@ class App extends SlimApp
     {
         $this->setBasePath($basePath);
         $this->init();
-        $container = new Container;
+        $container = new SlimContainer;
         parent::__construct($container);
         self::$instance = $this;
     }
@@ -54,6 +43,26 @@ class App extends SlimApp
     /**
      * @return mixed
      */
+    public function container()
+    {
+        return $this->container();
+    }
+
+    /**
+     * Register a shared binding in the container.
+     *
+     * @param  string|array $abstract
+     * @param  \Closure|string|null $concrete
+     * @return void
+     */
+    public function singleton($abstract, $concrete = null)
+    {
+        $this->container->singleton($abstract, $concrete);
+    }
+
+    /**
+     * @return mixed
+     */
     public function getBasePath()
     {
         return $this->basePath;
@@ -61,14 +70,7 @@ class App extends SlimApp
 
     public function init()
     {
-    }
-
-    public function registerConfig()
-    {
-        $this->config = new Config();
-        $this->fileSystem = new Filesystem();
-        $this->environment = $this->getEnvironment();
-        $this->config->loadConfigFiles($this->basePath . '/config');
+        $this->container = new Container();
     }
 
 
@@ -81,47 +83,24 @@ class App extends SlimApp
     }
 
     /**
-     * @return string
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @param $serviceClassName
      */
-    public function getEnvironment()
+    public function register($serviceClassName)
     {
-        $environment = '';
-        $environmentPath = $this->basePath . '/.env';
-        if ($this->fileSystem->isFile($environmentPath)) {
-            $environment = trim($this->fileSystem->get($environmentPath));
-            $envFile = $this->basePath . '/.' . $environment;
-
-            if ($this->fileSystem->isFile($envFile . '.env')) {
-                $dotEnv = new Dotenv($this->basePath . '/', '.' . $environment . '.env');
-                $dotEnv->load();
-            }
-        }
-        return $environment;
+        // $service = new \ReflectionClass($serviceClassName);
+        $service = new $serviceClassName;
+        $service->register();
+        $service->boot();
     }
 
     /**
-     * Boot Eloquent
+     * @param $abstract
+     * @param array $parameters
+     * @return mixed
      */
-    public function registerEloquent()
+    public function make($abstract, array $parameters = [])
     {
-        $capsule = new Capsule;
-        $config = $this->config->get('database.connections');
-        foreach ($config as $k => $v) {
-            $capsule->addConnection($v, $k);
-        }
-        $default = $this->config->get('database')['default'];
-        if ($default) {
-            if (isset($config[$default])) {
-                $capsule->addConnection($config[$default], 'default');
-            }
-        }
-        $capsule->bootEloquent();
-    }
-
-    public function registerLang()
-    {
-        $this->lang = Factory::getLang();
+        return $this->container->make($abstract, $parameters);
     }
 
 }
