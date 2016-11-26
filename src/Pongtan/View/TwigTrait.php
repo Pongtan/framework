@@ -3,9 +3,9 @@
 
 namespace Pongtan\View;
 
+use Pongtan\Twig\Extension\PhpFunctionExtension;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
-use Pongtan\Twig\Extension\PhpFunctionExtension;
 
 trait TwigTrait
 {
@@ -20,7 +20,7 @@ trait TwigTrait
         $twig = new Twig_Environment($loader, array(
             'cache' => $config['compiled'],
         ));
-        $ext = new PhpFunctionExtension(['config']);
+        $ext = new PhpFunctionExtension(['config', 'lang']);
         $twig->addExtension($ext);
         return $twig;
     }
