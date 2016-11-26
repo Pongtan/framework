@@ -15,7 +15,7 @@ class EloquentServiceProvider implements ServiceProviderInterface
     public function boot()
     {
         $capsule = new Capsule;
-        $config = $this->config->get('database.connections');
+        $config = app()->make('config')->get('database.connections');
         foreach ($config as $k => $v) {
             $capsule->addConnection($v, $k);
         }

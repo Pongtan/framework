@@ -4,8 +4,9 @@ if (!function_exists('app')) {
     /**
      * @return \Pongtan\App
      */
-    function app()
+    function app($abstract = null, array $parameters = [])
     {
+        // @todo
         return \Pongtan\App::getInstance();
     }
 }
