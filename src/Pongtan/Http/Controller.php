@@ -3,7 +3,6 @@
 namespace Pongtan\Http;
 
 use Interop\Container\ContainerInterface;
-use Pongtan\View\TwigTrait;
 
 class Controller
 {
@@ -12,7 +11,7 @@ class Controller
 
     protected $ci;
 
-    use TwigTrait;
+    // use TwigTrait;
 
     //Constructor
     public function __construct(ContainerInterface $ci)

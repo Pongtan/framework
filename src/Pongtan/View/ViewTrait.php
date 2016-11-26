@@ -3,9 +3,8 @@
 
 namespace Pongtan\View;
 
-use Twig_Environment;
 
-trait TwigTrait
+trait ViewTrait
 {
 
     /**

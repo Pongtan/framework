@@ -6,6 +6,7 @@ namespace Pongtan\Providers;
 use Pongtan\Support\ServiceProviderInterface;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
+use Pongtan\Twig\Extension\PhpFunctionExtension;
 
 class ViewServiceProvider implements ServiceProviderInterface
 {
