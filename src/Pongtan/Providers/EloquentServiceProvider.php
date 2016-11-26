@@ -19,7 +19,7 @@ class EloquentServiceProvider implements ServiceProviderInterface
         foreach ($config as $k => $v) {
             $capsule->addConnection($v, $k);
         }
-        $default = $this->config->get('database')['default'];
+        $default = app()->make('config')->get('database')['default'];
         if ($default) {
             if (isset($config[$default])) {
                 $capsule->addConnection($config[$default], 'default');
