@@ -4,7 +4,7 @@
 namespace Pongtan\Providers;
 
 use Pongtan\Services\Factory;
-use Pongtan\Support\ServiceProviderInterface;
+use Pongtan\Contracts\ServiceProviderInterface;
 
 class LangServiceProvider implements ServiceProviderInterface
 {

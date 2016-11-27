@@ -4,7 +4,7 @@
 namespace Pongtan\Providers;
 
 
-use Pongtan\Support\ServiceProviderInterface;
+use Pongtan\Contracts\ServiceProviderInterface;
 
 class LoggerServiceProvider implements ServiceProviderInterface
 {

@@ -5,7 +5,7 @@ namespace Pongtan\Providers;
 
 use Illuminate\Filesystem\Filesystem;
 use Pongtan\Services\Config;
-use Pongtan\Support\ServiceProviderInterface;
+use Pongtan\Contracts\ServiceProviderInterface;
 
 class ConfigServiceProvider implements ServiceProviderInterface
 {

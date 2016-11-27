@@ -4,7 +4,7 @@
 namespace Pongtan\Providers;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
-use Pongtan\Support\ServiceProviderInterface;
+use Pongtan\Contracts\ServiceProviderInterface;
 
 class EloquentServiceProvider implements ServiceProviderInterface
 {

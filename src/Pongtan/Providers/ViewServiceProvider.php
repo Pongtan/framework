@@ -3,7 +3,7 @@
 
 namespace Pongtan\Providers;
 
-use Pongtan\Support\ServiceProviderInterface;
+use Pongtan\Contracts\ServiceProviderInterface;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
 use Pongtan\Twig\Extension\PhpFunctionExtension;

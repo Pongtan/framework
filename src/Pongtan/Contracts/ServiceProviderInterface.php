@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Pongtan\Support;
+namespace Pongtan\Contracts;
 
 
 interface ServiceProviderInterface
