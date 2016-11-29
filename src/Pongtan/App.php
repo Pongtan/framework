@@ -3,7 +3,6 @@
 namespace Pongtan;
 
 use Illuminate\Container\Container;
-use Pongtan\Services\Config;
 use Slim\App as SlimApp;
 use Slim\Container as SlimContainer;
 
@@ -16,18 +15,18 @@ class App extends SlimApp
      */
     private $container;
 
-
     public static $instance;
 
     /**
      * App constructor.
+     *
      * @param $basePath
      */
     public function __construct($basePath)
     {
         $this->setBasePath($basePath);
         $this->init();
-        $container = new SlimContainer;
+        $container = new SlimContainer();
         parent::__construct($container);
         self::$instance = $this;
     }
@@ -51,9 +50,8 @@ class App extends SlimApp
     /**
      * Register a shared binding in the container.
      *
-     * @param  string|array $abstract
-     * @param  \Closure|string|null $concrete
-     * @return void
+     * @param string|array         $abstract
+     * @param \Closure|string|null $concrete
      */
     public function singleton($abstract, $concrete = null)
     {
@@ -73,7 +71,6 @@ class App extends SlimApp
         $this->container = new Container();
     }
 
-
     /**
      * @param $basePath
      */
@@ -88,7 +85,7 @@ class App extends SlimApp
     public function register($serviceClassName)
     {
         // $service = new \ReflectionClass($serviceClassName);
-        $service = new $serviceClassName;
+        $service = new $serviceClassName();
         $service->register();
         $service->boot();
     }
@@ -96,11 +93,11 @@ class App extends SlimApp
     /**
      * @param $abstract
      * @param array $parameters
+     *
      * @return mixed
      */
     public function make($abstract, array $parameters = [])
     {
         return $this->container->make($abstract, $parameters);
     }
-
 }

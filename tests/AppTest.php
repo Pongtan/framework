@@ -7,7 +7,6 @@ use Pongtan\App;
 
 class AppTest extends TestCase
 {
-
     public function setUp()
     {
         parent::setUp();
@@ -15,10 +14,11 @@ class AppTest extends TestCase
 
     public function testApp()
     {
-        $app = new App(__DIR__ . '/../');
+        $app = new App(__DIR__.'/../');
     }
 
-    public function testServiceProvicer(){
+    public function testServiceProvicer()
+    {
         $app = $this->getApp();
         $app->register(LangServiceProvider::class);
     }

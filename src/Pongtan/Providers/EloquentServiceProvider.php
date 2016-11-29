@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Pongtan\Providers;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
@@ -14,7 +13,7 @@ class EloquentServiceProvider implements ServiceProviderInterface
 
     public function boot()
     {
-        $capsule = new Capsule;
+        $capsule = new Capsule();
         $config = app()->make('config')->get('database.connections');
         foreach ($config as $k => $v) {
             $capsule->addConnection($v, $k);

@@ -7,7 +7,6 @@ use Illuminate\Filesystem\Filesystem;
 
 class Config extends Repository
 {
-
     /**
      * @param $path
      */
@@ -24,12 +23,10 @@ class Config extends Repository
             if ($pathInfo['dirname'] == '.') {
                 $key = $pathInfo['filename'];
             } else {
-                $key = str_replace('/', '.', $pathInfo['dirname']) . '.' . $pathInfo['filename'];
+                $key = str_replace('/', '.', $pathInfo['dirname']).'.'.$pathInfo['filename'];
             }
 
-            $this->set($key, require $path . '/' . $relativePathname);
+            $this->set($key, require $path.'/'.$relativePathname);
         }
     }
-
-
 }

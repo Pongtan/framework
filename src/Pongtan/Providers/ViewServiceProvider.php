@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Pongtan\Providers;
 
 use Pongtan\Contracts\ServiceProviderInterface;
@@ -20,6 +19,7 @@ class ViewServiceProvider implements ServiceProviderInterface
             ));
             $ext = new PhpFunctionExtension(['config', 'lang']);
             $twig->addExtension($ext);
+
             return $twig;
         });
     }

@@ -1,12 +1,9 @@
 <?php
 
-
 namespace Pongtan\View;
-
 
 trait ViewTrait
 {
-
     /**
      * @return Twig_Environment
      */
@@ -18,10 +15,11 @@ trait ViewTrait
     /**
      * @param $name
      * @param array $context
+     *
      * @return string
      */
     public function view($name, array $context = [])
     {
-        return $this->twig()->render($name, $context);
+        return $this->twig()->render($name . ".html", $context);
     }
 }

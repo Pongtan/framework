@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Pongtan\Providers;
 
 use Pongtan\Services\Factory;
@@ -17,6 +16,5 @@ class LangServiceProvider implements ServiceProviderInterface
 
     public function boot()
     {
-
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Pongtan\Services;
 
 use Illuminate\Filesystem\Filesystem;
@@ -19,9 +18,10 @@ class Factory
             $lang = 'en';
         }
         // Prepare the FileLoader
-        $loader = new FileLoader(new Filesystem(), app()->getBasePath() . '/resources/lang/');
+        $loader = new FileLoader(new Filesystem(), app()->getBasePath().'/resources/lang/');
         // Register the English translator
         $trans = new Translator($loader, $lang);
+
         return $trans;
     }
 }

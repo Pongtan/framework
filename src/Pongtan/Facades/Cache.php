@@ -18,6 +18,7 @@ class Cache
      * @param $key
      * @param $value
      * @param $ttl
+     *
      * @return bool
      */
     public function set($key, $value, $ttl)
@@ -27,6 +28,7 @@ class Cache
 
     /**
      * @param $key
+     *
      * @return mixed
      */
     public function get($key)

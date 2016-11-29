@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Pongtan\Contracts;
-
 
 interface ServiceProviderInterface
 {

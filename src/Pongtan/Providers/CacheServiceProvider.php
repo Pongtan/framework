@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Pongtan\Providers;
-
 
 use Pongtan\SimpleCache\RedisCache;
 use Pongtan\Contracts\ServiceProviderInterface;
@@ -16,6 +14,7 @@ class CacheServiceProvider implements ServiceProviderInterface
             // @todo others cache driver support
             $config = config('database.redis.default');
             $client = new Client($config);
+
             return new RedisCache($client);
         });
     }

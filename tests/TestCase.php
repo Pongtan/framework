@@ -12,6 +12,6 @@ class TestCase extends PHPUnit_Framework_TestCase
      */
     public function getApp()
     {
-        return new App(__DIR__ . '/../');
+        return new App(__DIR__.'/../');
     }
 }
