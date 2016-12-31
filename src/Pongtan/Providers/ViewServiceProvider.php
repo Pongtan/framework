@@ -17,7 +17,7 @@ class ViewServiceProvider implements ServiceProviderInterface
             $twig = new Twig_Environment($loader, array(
                 'cache' => $config['compiled'],
             ));
-            $ext = new PhpFunctionExtension(['config', 'lang']);
+            $ext = new PhpFunctionExtension(config('view.enable_functions'));
             $twig->addExtension($ext);
 
             return $twig;
