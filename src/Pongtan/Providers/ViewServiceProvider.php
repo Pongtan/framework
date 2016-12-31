@@ -16,6 +16,7 @@ class ViewServiceProvider implements ServiceProviderInterface
             $loader = new Twig_Loader_Filesystem($config['paths']);
             $twig = new Twig_Environment($loader, array(
                 'cache' => $config['compiled'],
+                'auto_reload' => true,
             ));
             $ext = new PhpFunctionExtension(config('view.enable_functions'));
             $twig->addExtension($ext);
