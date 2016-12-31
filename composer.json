@@ -15,7 +15,7 @@
     "illuminate/config": "^5.3",
     "slim/twig-view": "~2.0",
     "slim/csrf": "0.5.*",
-    "monolog/monolog": "^1.18",
+    "monolog/monolog": "^1.22",
     "smarty/smarty": "~3.1",
     "mailgun/mailgun-php": "~1.7.2",
     "predis/predis": "~1.0",
