@@ -5,6 +5,9 @@ namespace Pongtan;
 use Illuminate\Container\Container;
 use Slim\App as SlimApp;
 use Slim\Container as SlimContainer;
+use Exception;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 class App extends SlimApp
 {
@@ -26,8 +29,25 @@ class App extends SlimApp
     {
         $this->setBasePath($basePath);
         $this->init();
-        $container = new SlimContainer();
-        parent::__construct($container);
+        $c = new SlimContainer();
+        parent::__construct($c);
+        $this->getContainer()['errorHandler'] = function ($c) {
+            return function ($request, $response, Exception $exception) use ($c) {
+                $log = app()->make('log');
+                $log->error($exception->getMessage());
+                foreach ($exception->getTrace() as $key => $row) {
+                    if (!isset($row['function']) || !isset($row['line']) || !isset($row['file'])) {
+                        $log->error(sprintf("#%s %s  %s ", $key, $row['function'], $row['class']));
+                        continue;
+                    }
+                    $log->error(sprintf("#%s %s %s", $key, $row['file'], $row['line']));
+                }
+                // @todo add json support
+                return $c['response']->withStatus(500)
+                    ->withHeader('Content-Type', 'text/html')
+                    ->write(app()->make('view')->render('error/500.html'));
+            };
+        };
         self::$instance = $this;
     }
 
@@ -50,7 +70,7 @@ class App extends SlimApp
     /**
      * Register a shared binding in the container.
      *
-     * @param string|array         $abstract
+     * @param string|array $abstract
      * @param \Closure|string|null $concrete
      */
     public function singleton($abstract, $concrete = null)
