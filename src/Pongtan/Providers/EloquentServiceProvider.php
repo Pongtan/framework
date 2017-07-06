@@ -24,6 +24,7 @@ class EloquentServiceProvider implements ServiceProviderInterface
                 $capsule->addConnection($config[$default], 'default');
             }
         }
+        $capsule->setAsGlobal();
         $capsule->bootEloquent();
     }
 }
